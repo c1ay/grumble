@@ -12,9 +12,9 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"github.com/c1ay/grumble/pkg/acl"
+	"github.com/c1ay/grumble/pkg/ban"
 	"log"
-	"mumble.info/grumble/pkg/acl"
-	"mumble.info/grumble/pkg/ban"
 	"net"
 	"os"
 	"path/filepath"

@@ -15,18 +15,18 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/c1ay/grumble/pkg/acl"
+	"github.com/c1ay/grumble/pkg/ban"
+	"github.com/c1ay/grumble/pkg/freezer"
+	"github.com/c1ay/grumble/pkg/htmlfilter"
+	"github.com/c1ay/grumble/pkg/logtarget"
+	"github.com/c1ay/grumble/pkg/mumbleproto"
+	"github.com/c1ay/grumble/pkg/serverconf"
+	"github.com/c1ay/grumble/pkg/sessionpool"
+	"github.com/c1ay/grumble/pkg/web"
 	"github.com/golang/protobuf/proto"
 	"hash"
 	"log"
-	"mumble.info/grumble/pkg/acl"
-	"mumble.info/grumble/pkg/ban"
-	"mumble.info/grumble/pkg/freezer"
-	"mumble.info/grumble/pkg/htmlfilter"
-	"mumble.info/grumble/pkg/logtarget"
-	"mumble.info/grumble/pkg/mumbleproto"
-	"mumble.info/grumble/pkg/serverconf"
-	"mumble.info/grumble/pkg/sessionpool"
-	"mumble.info/grumble/pkg/web"
 	"net"
 	"net/http"
 	"path/filepath"
@@ -1452,9 +1452,9 @@ func (server *Server) Start() (err error) {
 		// Set sensible timeouts, in case no reverse proxy is in front of Grumble.
 		// Non-conforming (or malicious) clients may otherwise block indefinitely and cause
 		// file descriptors (or handles, depending on your OS) to leak and/or be exhausted
-		ReadTimeout: 5 * time.Second,
+		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
-		IdleTimeout: 2 * time.Minute,
+		IdleTimeout:  2 * time.Minute,
 	}
 	go func() {
 		err := server.webhttp.ListenAndServeTLS("", "")
